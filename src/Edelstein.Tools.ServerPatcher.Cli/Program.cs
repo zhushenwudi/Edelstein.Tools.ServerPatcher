@@ -8,9 +8,9 @@ using System.IO.Compression;
 using System.Text;
 
 Option<GameRegion> gameRegionOption = new(["--region", "-r"], () => GameRegion.Jp, "Game region");
-Option<Uri> apiUriOption = new(["--api-url", "-a"], () => new Uri("http://localhost:35373"), "API URL");
-Option<Uri> assetsUriOption = new(["--assets-url", "-c"], () => new Uri("http://localhost:35373"), "Assets URL");
-Option<GGLHeaderFormat> headerFormatOption = new(["--header-format", "-h"], () => GGLHeaderFormat.Original,
+Option<Uri> apiUriOption = new(["--api-url", "-a"], () => new Uri("https://sif2.zhushenwudi.top"), "服务器URL");
+Option<Uri> assetsUriOption = new(["--assets-url", "-c"], () => new Uri("https://sif2.sif.moe"), "资源URL");
+Option<GGLHeaderFormat> headerFormatOption = new(["--header-format", "-h"], () => GGLHeaderFormat.Lowercase,
     "Header format (ew uses Lowercase, Edelstein uses Original)");
 Option<FileInfo?> customApkFileOption = new(["--input-file", "-i"], () => null, "Custom .apk file path");
 Option<FileInfo> outputFileOption = new(["--output-file", "-o"], () => new FileInfo("sif2_patched.apk"), "Output .apk file path");
@@ -126,5 +126,6 @@ static Uri BuildBaseApkUri(GameRegion region, bool allowHttp, GGLHeaderFormat he
 
     baseApkName += ".apk";
 
-    return new Uri(new Uri("https://arasfon.ru/direct/lovelive/sif2/server-patcher/base-apks/"), baseApkName);
+    // return new Uri(new Uri("https://arasfon.ru/direct/lovelive/sif2/server-patcher/base-apks/"), baseApkName);
+    return new Uri(new Uri("http://127.0.0.1:40072/pd/1/SIF2_CLIENT/android/"), baseApkName);
 }

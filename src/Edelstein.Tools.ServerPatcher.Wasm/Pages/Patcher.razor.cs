@@ -106,8 +106,8 @@ public partial class Patcher
         if (UseCustomApk && _apkFile is null)
             throw new InvalidOperationException("Custom .apk was requested to be used and no file was provided.");
 
-        PatchSettings.ApiUri ??= "http://localhost:35373";
-        PatchSettings.AssetsUri ??= "http://localhost:35373";
+        PatchSettings.ApiUri ??= "https://sif2.zhushenwudi.top";
+        PatchSettings.AssetsUri ??= "https://sif2.sif.moe";
 
         PatchSettings.ApiUri = PatchSettings.ApiUri.TrimEnd('/');
         PatchSettings.AssetsUri = PatchSettings.AssetsUri.TrimEnd('/');

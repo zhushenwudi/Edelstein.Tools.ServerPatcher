@@ -38,6 +38,12 @@ Options:
 - `--version`                                           Show version information
 - `-?`, `-h`, `--help`                                      Show help and usage information
 
+## Publish
+
+```bash
+dotnet publish -c Release
+```
+
 ## License
 
 See [LICENSE](LICENSE)

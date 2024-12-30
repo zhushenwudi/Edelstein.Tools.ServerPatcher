@@ -1,13 +1,13 @@
 @page "/"
 @using Edelstein.Tools.ServerPatcher.Wasm.Core
 
-<PageTitle>LLSIF2 Server Patcher</PageTitle>
+<PageTitle>LoveLive SIF2服务器补丁程序</PageTitle>
 
 <FluentStack Orientation="Orientation.Vertical">
     <FluentStack Orientation="Orientation.Vertical">
-        <FluentLabel Typo="Typography.PageTitle">LLSIF2 Server Patcher</FluentLabel>
-        <FluentLabel>This patcher is for the Android version of the game.</FluentLabel>
-        <FluentLabel>For iOS, there is a patched version with easily editable settings available for download <FluentAnchor Href="https://arasfon.ru/direct/lovelive/sif2/patched-clients/ios/" Appearance="Appearance.Hypertext">here</FluentAnchor>.</FluentLabel>
+        <FluentLabel Typo="Typography.PageTitle">LoveLive SIF2服务器补丁程序</FluentLabel>
+        <FluentLabel>这个补丁适用于LoveLive SIF2的安卓版本。</FluentLabel>
+        <FluentLabel>对于iOS，有一个已修补的版本，其设置易于编辑，可供下载 <FluentAnchor Href="https://file.zhushenwudi.top/1/SIF2_CLIENT/ios/" Appearance="Appearance.Hypertext">here</FluentAnchor>.</FluentLabel>
     </FluentStack>
 
     <FluentCard AreaRestricted="false">
@@ -15,81 +15,81 @@
             <DataAnnotationsValidator/>
 
             <FluentStack Orientation="Orientation.Vertical">
-                <FluentSwitch Label="Use custom .apk (not recommended)" @bind-Value="UseCustomApk"/>
-                @if (UseCustomApk)
-                {
-                    <!-- Nesting FluentCards causes recursion error in console -->
-                    <FluentCard AreaRestricted="false">
-                        <FluentStack Orientation="Orientation.Vertical">
-                            <FluentLabel>Loaded file: <code>@(_customApkOriginalFileName ?? "None")</code></FluentLabel>
-                            <FluentInputFile Id="file-uploader"
-                                             Mode="InputFileMode.SaveToTemporaryFolder"
-                                             Accept=".apk"
-                                             Style="border: 1px dashed var(--accent-fill-rest); padding: 1rem;"
-                                             MaximumFileSize="1 * 1024 * 1024 * 1024"
-                                             BufferSize="1 * 1024 * 1024"
-                                             OnCompleted="OnCustomApkUploadComplete"
-                                             OnProgressChange="OnCustomApkUploadProgress">
-                                <ChildContent>
-                                    <label for="file-uploader">
-                                        <FluentIcon Value="@(new Icons.Regular.Size24.ArrowUpload())"/>
-                                    </label>
-                                    <FluentStack Orientation="Orientation.Vertical" HorizontalAlignment="HorizontalAlignment.Center">
-                                        <FluentLabel>You can drag and drop your .apk here, or <label for="file-uploader">browse</label> to upload it.</FluentLabel>
-                                    </FluentStack>
-                                </ChildContent>
-                            </FluentInputFile>
-                        </FluentStack>
-                    </FluentCard>
-                }
+                @* <FluentSwitch Label="Use custom .apk (not recommended)" @bind-Value="UseCustomApk"/> *@
+                @* @if (UseCustomApk) *@
+                @* { *@
+                @*     <!-- Nesting FluentCards causes recursion error in console --> *@
+                @*     <FluentCard AreaRestricted="false"> *@
+                @*         <FluentStack Orientation="Orientation.Vertical"> *@
+                @*             <FluentLabel>Loaded file: <code>@(_customApkOriginalFileName ?? "None")</code></FluentLabel> *@
+                @*             <FluentInputFile Id="file-uploader" *@
+                @*                              Mode="InputFileMode.SaveToTemporaryFolder" *@
+                @*                              Accept=".apk" *@
+                @*                              Style="border: 1px dashed var(--accent-fill-rest); padding: 1rem;" *@
+                @*                              MaximumFileSize="1 * 1024 * 1024 * 1024" *@
+                @*                              BufferSize="1 * 1024 * 1024" *@
+                @*                              OnCompleted="OnCustomApkUploadComplete" *@
+                @*                              OnProgressChange="OnCustomApkUploadProgress"> *@
+                @*                 <ChildContent> *@
+                @*                     <label for="file-uploader"> *@
+                @*                         <FluentIcon Value="@(new Icons.Regular.Size24.ArrowUpload())"/> *@
+                @*                     </label> *@
+                @*                     <FluentStack Orientation="Orientation.Vertical" HorizontalAlignment="HorizontalAlignment.Center"> *@
+                @*                         <FluentLabel>You can drag and drop your .apk here, or <label for="file-uploader">browse</label> to upload it.</FluentLabel> *@
+                @*                     </FluentStack> *@
+                @*                 </ChildContent> *@
+                @*             </FluentInputFile> *@
+                @*         </FluentStack> *@
+                @*     </FluentCard> *@
+                @* } *@
                 <FluentStack Orientation="Orientation.Vertical" VerticalGap="0">
-                    <FluentTextField Label="API URL" Placeholder="http://localhost:35373" @bind-Value="PatchSettings.ApiUri" Spellcheck="false" Size="50"/>
+                    <FluentTextField Label="服务器URL" Placeholder="https://sif2.zhushenwudi.top" @bind-Value="PatchSettings.ApiUri" Spellcheck="false" Size="50"/>
                     <FluentValidationMessage For="@(() => PatchSettings.ApiUri)"/>
                 </FluentStack>
                 <FluentStack Orientation="Orientation.Vertical" VerticalGap="0">
-                    <FluentTextField Label="Assets URL" Placeholder="http://localhost:35373" @bind-Value="PatchSettings.AssetsUri" Spellcheck="false" Size="50"/>
+                    <FluentTextField Label="资源URL" Placeholder="https://sif2.sif.moe" @bind-Value="PatchSettings.AssetsUri" Spellcheck="false" Size="50"/>
                     <FluentValidationMessage For="@(() => PatchSettings.AssetsUri)"/>
                 </FluentStack>
                 <FluentStack Orientation="Orientation.Vertical" VerticalGap="0">
-                    <FluentRadioGroup @bind-Value="PatchSettings.Region" Label="Game version">
-                        <FluentRadio Value="GameRegion.Jp" Checked="true">Jp</FluentRadio>
-                        <FluentRadio Value="GameRegion.Global">Global</FluentRadio>
+                    <FluentRadioGroup @bind-Value="PatchSettings.Region" Label="游戏版本">
+                        <FluentRadio Value="GameRegion.Jp" Checked="true">日服</FluentRadio>
+                        <FluentRadio Value="GameRegion.Global">国际服</FluentRadio>
                     </FluentRadioGroup>
                 </FluentStack>
                 <FluentStack Orientation="Orientation.Vertical" VerticalGap="0">
                     <FluentStack VerticalAlignment="VerticalAlignment.Center">
-                        <FluentInputLabel ForId="header-format-select" Label="Header format"/>
+                        <FluentInputLabel ForId="header-format-select" Label="头部格式"/>
                         <FluentIcon Id="header-format-info-icon" Icon="Icons.Regular.Size16.Info" Style="margin: 0 0 4px 0;"/>
                         <FluentTooltip Anchor="header-format-info-icon">
                             <FluentLabel><FluentAnchor Href="https://github.com/ethanaobrien/ew" Appearance="Appearance.Hypertext">ew</FluentAnchor> uses <code>Lowercase</code>, <FluentAnchor Href="https://github.com/Arasfon/Edelstein" Appearance="Appearance.Hypertext">Edelstein</FluentAnchor> uses <code>Original</code>.</FluentLabel>
                         </FluentTooltip>
                     </FluentStack>
                     <FluentSelect Id="header-format-select" TOption="GGLHeaderFormat" @onchange="OnHeaderFormatSelectChange">
+                        <FluentOption Value="@(GGLHeaderFormat.Lowercase.ToString())" Selected="@(GGLHeaderFormat.Lowercase == PatchSettings.HeaderFormat)">
+                            Lowercase (x-gree-authorization)
+                        </FluentOption>
                         <FluentOption Value="@(GGLHeaderFormat.Original.ToString())" Selected="@(GGLHeaderFormat.Original == PatchSettings.HeaderFormat)">
                             Original (X-GREE-Authorization)
                         </FluentOption>
                         <FluentOption Value="@(GGLHeaderFormat.Canonical.ToString())" Selected="@(GGLHeaderFormat.Canonical == PatchSettings.HeaderFormat)">
                             Canonical (X-Gree-Authorization)
                         </FluentOption>
-                        <FluentOption Value="@(GGLHeaderFormat.Lowercase.ToString())" Selected="@(GGLHeaderFormat.Lowercase == PatchSettings.HeaderFormat)">
-                            Lowercase (x-gree-authorization)
-                        </FluentOption>
                     </FluentSelect>
                 </FluentStack>
                 @if (PatchedApkDownloadUri is null)
                 {
-                    <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent" @bind-Disabled="IsPatchDisabled">Patch</FluentButton>
+                    <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent" @bind-Disabled="IsPatchDisabled">开始修补</FluentButton>
                 }
                 else
                 {
-                    <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent" Disabled="true">Reload the page to patch again</FluentButton>
+                    <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent" Disabled="true">刷新界面重新修补</FluentButton>
                 }
 
                 @if (PatchedApkDownloadUri is not null)
                 {
                     <FluentDivider Style="width: 100%"/>
-                    <FluentLabel><strong>Note:</strong> The patched .apk is <strong>not</strong> signed. You need to sign it using <FluentAnchor Href="https://github.com/patrickfav/uber-apk-signer" Appearance="Appearance.Hypertext">uber-apk-signer</FluentAnchor> or manually using <FluentAnchor Href="https://developer.android.com/tools/apksigner" Appearance="Appearance.Hypertext">apksigner</FluentAnchor>.</FluentLabel>
-                    <FluentAnchor Href="@PatchedApkDownloadUri" Target="_self" Download="sif2_patched.apk">Download patched .apk file</FluentAnchor>
+                    <FluentLabel><strong>注意:</strong> 这个修补后的apk <strong>不是</strong> 已签名的. 你需要使用签名工具 <FluentAnchor Href="https://github.com/patrickfav/uber-apk-signer" Appearance="Appearance.Hypertext">uber-apk-signer</FluentAnchor> 或者手动通过 <FluentAnchor Href="https://developer.android.com/tools/apksigner" Appearance="Appearance.Hypertext">apksigner</FluentAnchor> 签名.</FluentLabel>
+                    <FluentAnchor Href="@PatchedApkDownloadUri" Target="_self" Download="sif2_patched.apk">下载修补后的apk</FluentAnchor>
                 }
             </FluentStack>
         </FluentEditForm>
